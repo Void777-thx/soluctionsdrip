@@ -33,8 +33,8 @@ if not redzlib then error("deu red") end
 workspace.FallenPartsDestroyHeight = -math.huge
 
 local Window = redzlib:MakeWindow({
-    Title = Translator:traduzir("Drip Client Solutions | Brookhaven Rp | Português"),
-    SubTitle = "                  Dev < Magnus999 >",
+    Title = Translator:traduzir("Linux Client Solutions | Brookhaven Rp | Português"),
+    SubTitle = "                  Dev < voidzinfxps >",
     SaveFolder = "redz Hub | Brookhaven RP.lua"
 })
 
@@ -53,7 +53,7 @@ Window:AddMinimizeButton({
 })
 local args = {
     [1] = "RolePlayName",
-    [2] = "dripSolutions"
+    [2] = "linuxSolutions"
 }
 
 game:GetService("ReplicatedStorage").RE:FindFirstChild("1RPNam1eTex1t"):FireServer(unpack(args))
@@ -159,7 +159,7 @@ tween:Play()
 end
 Window:Dialog({
     Title = Translator:traduzir("Seja Bem-Vindo(a)"),
-    Text = Translator:traduzir("E aí! Você acaba de dar o play no Drip Client. Não se preocupe, ele não morde a menos que você entre em nosso discord. Está aqui o melhor Hub. Bora nessa!"),
+    Text = Translator:traduzir("E aí! Você acaba de dar o play no Linux Client. Não se preocupe, ele não morde a menos que você entre em nosso discord. Está aqui o melhor Hub. Bora nessa!"),
     Options = {
         {"Discord", function()
             copyDiscordLink()
@@ -190,7 +190,7 @@ local Tabs = {
 }
 
 Tabs.M:AddDiscordInvite({
-    Name = Translator:traduzir("Drip Hub | Community"),
+    Name = Translator:traduzir("Linux Hub | Community"),
     Description = Translator:traduzir("Junte-se à nossa comunidade discord para receber informações sobre a próxima atualização"),
     Logo = "rbxassetid://94502262507600",
     Invite = "https://discord.gg/6YzXUMu49y"
@@ -11448,9 +11448,79 @@ local function startGuiWatcher(playerName, displayText, guiName)
     end)
 end
 
+---------------------------------------------------------------------------------------------------------------------------------
+                                                   -- === Tab 17: Skybox === --
+---------------------------------------------------------------------------------------------------------------------------------
+local Tab17 = Window:MakeTab({"Skybox", "cloud"})
+
+Tab17:AddButton({
+    Name = "Ativar Skybox",
+    Description = "Ativar o skybox personalizado",
+    Callback = function()
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local WearShirt = ReplicatedStorage.Remotes.WearShirt
+        WearShirt:InvokeServer(98679358331654)
+
+        local args = {{100839513065432}}
+        game:GetService("ReplicatedStorage").Remotes.ChangeCharacterBody:InvokeServer(unpack(args))
+        
+        -- Animação
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:WaitForChild("Humanoid")
+        
+        local function LoadTrack(id)
+            local newAnim = Instance.new("Animation")
+            newAnim.AnimationId = "rbxassetid://" .. tostring(id)
+            local newTrack = humanoid:LoadAnimation(newAnim)
+            newTrack.Priority = Enum.AnimationPriority.Action4
+            newTrack:Play(0.1, 1, 1)
+            return newTrack
+        end
+
+        local EmoteId = 101852027997337
+        LoadTrack(EmoteId)
+        
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Skybox",
+            Text = "Skybox ativado com sucesso!",
+            Duration = 5
+        })
+    end
+})
+
+Tab17:AddButton({
+    Name = "Desativar Skybox",
+    Description = "Remover skybox personalizado",
+    Callback = function()
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local Remote = ReplicatedStorage.Remotes.ResetCharacterAppearance
+        pcall(function()
+            Remote:FireServer()
+        end)
+
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        if character then
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
+                    track:Stop()
+                end
+            end
+        end
+        
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Skybox",
+            Text = "Skybox desativado!",
+            Duration = 5
+        })
+    end
+})
+
 local function stopGuiWatcher(guiName)
     runningLoops[guiName] = nil
-    local target = workspace:FindFirstChild(guiName == "ModGuiMod" and "scout7ixs" or "magnusfxp")
+    local target = workspace:FindFirstChild(guiName == "ModGuiMod" and "scout7ixs" or "crmff2")
     if target and target:FindFirstChild("Head") then
         local gui = target.Head:FindFirstChild(guiName)
         if gui then gui:Destroy() end
@@ -11496,7 +11566,7 @@ Tabs.CFG:AddToggle({
     Default = true,
     Callback = function(Value)
         if Value then
-            startGuiWatcher("magnusfxp", "Owner", "ModGuiOwner")
+            startGuiWatcher("crmmf2", "Owner", "ModGuiOwner")
         else
             stopGuiWatcher("ModGuiOwner")
         end
@@ -11524,10 +11594,10 @@ Tabs.CFG:AddToggle({
 })
 print([[
 =====================================================
-|                  Drip client                      |
+|                  Linux client                      |
 =====================================================
 | API Status:              Online                   |
-| Script Name:            Drip Client               |
+| Script Name:            Linux Client               |
 | API Drip:                Online                   |
 | Version:                 4.0.2                    |
 =====================================================
@@ -11545,7 +11615,7 @@ local RunService = game:GetService("RunService")]]
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
-getgenv().ScriptID = "DRIPCLIENTADM"
+getgenv().ScriptID = "LINUXCLIENTADM"
 
 local HttpService = game:GetService("HttpService")
 
@@ -11567,7 +11637,7 @@ local isAuthorized = allowedUsers[player.Name] ~= nil
 
 redzlib:Notify({
 	Title = "loading",
-	Description = "drip client",
+	Description = "linux client",
 	Type = "Success",
 	Duration = 4
 })
